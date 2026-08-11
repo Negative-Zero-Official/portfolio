@@ -4,7 +4,7 @@
 // Edit this file to change the skill sliders on the site.
 //
 // - "category"  → panel heading (e.g. "Programming")
-// - "color"     → "signal" (teal bar) or "gold" (amber bar)
+// - "color"     → "violet" (default bar) or "coral" (warm accent bar)
 // - "items"     → list of { name, level, tag }
 //     - "name"  → skill label
 //     - "level" → 0–100, how full the bar is
@@ -23,7 +23,7 @@
 module.exports = [
   {
     category: "Programming",
-    color: "signal",
+    color: "violet",
     items: [
       { name: "Python", level: 95, tag: "PRIMARY" },
       { name: "Java", level: 80, tag: "PROFICIENT" },
@@ -35,7 +35,7 @@ module.exports = [
   },
   {
     category: "Content Development",
-    color: "gold",
+    color: "coral",
     items: [
       { name: "Adobe Premiere Pro", level: 85, tag: "PROFICIENT" },
       { name: "Photoshop", level: 78, tag: "PROFICIENT" },

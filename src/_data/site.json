@@ -2,8 +2,8 @@
   "name": "Prahlad Gaitonde",
   "initials": "PG",
   "role": "Computer Science Undergraduate — Artificial Intelligence & Machine Learning",
-  "eyebrow": "AI / ML Engineer — Signal Processing & Applied Research",
-  "heroHeadline": { "line1": "Building signal", "line2": "out of", "accent": "noise." },
+  "eyebrow": "AI / ML Engineer — Model Training & Applied Research",
+  "heroHeadline": { "line1": "Minimizing loss,", "line2": "maximizing", "accent": "impact." },
   "heroLede": "I'm **Prahlad Gaitonde**, a Computer Science undergraduate at Manipal Institute of Technology specializing in AI & Machine Learning. I build and publish applied ML systems — from healthcare decision support to classifying real astronomical events from false alarms — and bring a media production background to how I explain them.",
   "status": "OPEN TO WORK",
   "email": "pgaitonde05@gmail.com",
@@ -32,7 +32,7 @@
     ]
   },
   "contact": {
-    "heading": "Let's build something worth classifying as real.",
+    "heading": "Let's build something worth deploying.",
     "body": "Open to AI/ML engineering roles, research collaborations, and internships. Reach out directly — I read every message."
   }
 }

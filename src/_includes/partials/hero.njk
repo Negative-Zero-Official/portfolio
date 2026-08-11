@@ -17,13 +17,14 @@
 
     <div class="scope-panel reveal">
       <div class="scope-head">
-        <span>CLASSIFIER_OUTPUT.LOG</span>
+        <span>train_run.log</span>
         <span class="tag">LIVE</span>
       </div>
-      <canvas id="scope" width="600" height="220" role="img" aria-label="Animated waveform resolving from noise into a clean signal, representing a real-vs-bogus alert classifier"></canvas>
+      <canvas id="scope" width="600" height="220" role="img" aria-label="Animated line chart showing a model's training loss decreasing and converging over epochs, illustrating an ML training run"></canvas>
       <div class="scope-foot">
-        <span>SOURCE: ZTF_ALERT_STREAM</span>
-        <span class="real">CLASSIFICATION: REAL ●</span>
+        <span id="epochReadout">EPOCH 000/120</span>
+        <span id="lossReadout">LOSS —</span>
+        <span id="statusReadout" class="metric-live">TRAINING ●</span>
       </div>
     </div>
   </div>

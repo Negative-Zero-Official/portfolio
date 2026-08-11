@@ -33,7 +33,7 @@ Everything you're likely to change lives in `src/`, split by type:
    ```yaml
    title: "My New Project"
    statusLabel: "Open Source"      # text shown in the pill
-   statusClass: "oss"              # "published" (teal) · "oss" (gold) · "analysis" (grey)
+   statusClass: "oss"              # "published" (violet) · "oss" (coral) · "analysis" (grey)
    tags: ["Python", "Computer Vision"]   # chips under the description, or [] for none
    link: "https://github.com/you/repo"   # leave "" to hide the link
    linkLabel: "View on GitHub"
