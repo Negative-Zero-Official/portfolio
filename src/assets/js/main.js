@@ -17,8 +17,8 @@ if (canvas) {
   const epochEl = document.getElementById('epochReadout');
   const lossEl = document.getElementById('lossReadout');
   const statusEl = document.getElementById('statusReadout');
-  const TOTAL_EPOCHS = 120;
-  const REVEAL_FRAMES = 340;   // frames to sweep across the full curve
+  const TOTAL_EPOCHS = 1200;    // Original: 120
+  const REVEAL_FRAMES = 3400;   // frames to sweep across the full curve, original: 340
   const HOLD_FRAMES = 90;      // frames to hold at "converged" before restarting
   const CYCLE = REVEAL_FRAMES + HOLD_FRAMES;
 
@@ -29,7 +29,8 @@ if (canvas) {
   // noise that shrinks as training progresses — mirrors a real training curve
   function lossAt(frac){
     const base = Math.exp(-4.2 * frac);
-    const noise = (Math.random() - 0.5) * 0.16 * (1 - frac * 0.85);
+    // const noise = (Math.random() - 0.5) * 0.16 * (1 - frac * 0.85);
+    const noise = 0;
     return Math.max(0.015, Math.min(1, base + noise));
   }
 
@@ -45,7 +46,9 @@ if (canvas) {
     for(let y=0; y<h; y+=30){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
 
     const cycle = t % CYCLE;
-    const revealFrac = Math.min(1, cycle / REVEAL_FRAMES);
+    // const revealFrac = Math.min(1, cycle / REVEAL_FRAMES);
+    const raw = t / REVEAL_FRAMES;
+    const revealFrac = 1 - Math.exp(-2 * raw)
     const marginTop = h * 0.12, marginBottom = h * 0.12;
     const plotH = h - marginTop - marginBottom;
 
