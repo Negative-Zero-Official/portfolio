@@ -1,0 +1,32 @@
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">{{ site.eyebrow }}</div>
+      <h1>{{ site.heroHeadline.line1 }}<br>{{ site.heroHeadline.line2 }} <span class="accent">{{ site.heroHeadline.accent }}</span></h1>
+      <p class="lede">{{ site.heroLede | mdInline | safe }}</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn btn-primary">View Projects →</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>Based in</b> {{ site.location }}</span>
+        <span><b>Focus</b> {{ site.focus }}</span>
+        <span><b>Status</b> {{ site.gradStatus }}</span>
+      </div>
+    </div>
+
+    <div class="scope-panel reveal">
+      <div class="scope-head">
+        <span>CLASSIFIER_OUTPUT.LOG</span>
+        <span class="tag">LIVE</span>
+      </div>
+      <canvas id="scope" width="600" height="220" role="img" aria-label="Animated waveform resolving from noise into a clean signal, representing a real-vs-bogus alert classifier"></canvas>
+      <div class="scope-foot">
+        <span>SOURCE: ZTF_ALERT_STREAM</span>
+        <span class="real">CLASSIFICATION: REAL ●</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="wave">

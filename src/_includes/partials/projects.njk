@@ -1,0 +1,31 @@
+<section id="projects" class="tight">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">04 / Projects &amp; Publications</div>
+      <h2 class="section-title">Selected work</h2>
+      <p>Each entry is tagged the way I'd tag a detection — by what state it's actually in.</p>
+    </div>
+
+    <div class="proj-grid">
+      {% for project in collections.projects %}
+      <div class="proj-card {% if project.data.featured %}full{% endif %} reveal">
+        <div class="proj-top">
+          <h3>{{ project.data.title }}</h3>
+          <span class="status-tag {{ project.data.statusClass }}">{{ project.data.statusLabel }}</span>
+        </div>
+        <div class="proj-desc">{{ project.templateContent | safe }}</div>
+        {% if project.data.tags and project.data.tags.length %}
+        <div class="chip-row">
+          {% for tag in project.data.tags %}
+          <span class="chip">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if project.data.link %}
+        <a class="proj-link" href="{{ project.data.link }}" target="_blank" rel="noopener">{{ project.data.linkLabel }} →</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+<section id="achievements" class="tight">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">06 / Achievements</div>
+      <h2 class="section-title">Recognition &amp; activities</h2>
+    </div>
+    <div class="ach-grid">
+      {% for item in achievements %}
+      <div class="ach-item reveal"><span class="ach-icon">{{ item.icon }}</span><p>{{ item.text }}</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

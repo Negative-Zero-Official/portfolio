@@ -1,0 +1,28 @@
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">03 / Experience</div>
+      <h2 class="section-title">Work history</h2>
+      <p>Internships spanning applied ML engineering and AI product marketing.</p>
+    </div>
+
+    {% for job in collections.experience %}
+    <div class="exp-card reveal">
+      <div class="exp-bar">
+        <div>
+          <h3>{{ job.data.role }}</h3>
+          <div class="org">{{ job.data.org }}</div>
+        </div>
+        <div class="date">{{ job.data.dateLabel }}</div>
+      </div>
+      <div class="exp-body">
+        <ul>
+          {% for bullet in job.data.bullets %}
+          <li>{{ bullet }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

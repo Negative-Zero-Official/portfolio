@@ -1,0 +1,21 @@
+<section id="education" class="tight">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">02 / Education</div>
+      <h2 class="section-title">Academic record</h2>
+    </div>
+    <div class="timeline reveal">
+      {% for edu in education %}
+      <div class="t-item">
+        <div class="t-head">
+          <h3>{{ edu.institution }}</h3>
+          <span class="date">{{ edu.date }}</span>
+        </div>
+        <div class="sub">{{ edu.detail }}</div>
+        {% if edu.chip %}<span class="stat-chip">{{ edu.chip }}</span>{% endif %}
+        {% if edu.subDetail %}<div class="detail">{{ edu.subDetail }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

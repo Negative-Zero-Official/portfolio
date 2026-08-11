@@ -1,0 +1,23 @@
+[
+  {
+    "institution": "Manipal Institute of Technology",
+    "date": "2023 — 2027",
+    "detail": "B.Tech, Computer Science & Engineering — Artificial Intelligence & Machine Learning",
+    "chip": "CGPA 7.8 / 10",
+    "subDetail": ""
+  },
+  {
+    "institution": "Delhi Public School",
+    "date": "12th Grade · CBSE",
+    "detail": "Senior Secondary — 93%",
+    "chip": "",
+    "subDetail": "MATH 95 · PHYSICS 90 · CHEMISTRY 95 · INFORMATICS PRACTICES 99 · ENGLISH 86"
+  },
+  {
+    "institution": "Glendale Academy International",
+    "date": "10th Grade · CBSE",
+    "detail": "Secondary — 91.2%",
+    "chip": "",
+    "subDetail": "MATH 92 · SCIENCE 90 · ENGLISH 92"
+  }
+]

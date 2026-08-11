@@ -1,0 +1,22 @@
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="eyebrow">01 / About</div>
+      <h2 class="section-title">{{ site.about.heading }}</h2>
+      {% for para in site.about.paragraphs %}
+      <p>{{ para | mdInline | safe }}</p>
+      {% endfor %}
+    </div>
+    <div class="reveal">
+      <div class="avatar-wrap">
+        <img src="{{ '/assets/img/photo.jpg' | url }}" alt="Portrait of {{ site.name }}">
+        <span class="avatar-tag">{{ site.initials }} · MIT '27</span>
+      </div>
+      <div class="fact-panel" style="margin-top:16px;">
+        {% for fact in site.about.facts %}
+        <div class="fact-row"><span class="k">{{ fact.k }}</span><span class="v">{{ fact.v }}</span></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

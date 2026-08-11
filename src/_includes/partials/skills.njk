@@ -1,0 +1,21 @@
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">05 / Skills</div>
+      <h2 class="section-title">Toolkit</h2>
+    </div>
+    <div class="skills-grid">
+      {% for panel in skills %}
+      <div class="skill-panel {{ panel.color }} reveal">
+        <h3>{{ panel.category }}</h3>
+        {% for item in panel.items %}
+        <div class="meter-row">
+          <div class="meter-label">{{ item.name }} <span class="lvl">{{ item.tag }}</span></div>
+          <div class="meter-track"><div class="meter-fill {% if panel.color == 'gold' %}gold{% endif %}" style="width:{{ item.level }}%"></div></div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
