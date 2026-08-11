@@ -1,6 +1,7 @@
 ---
+company: "MagicSlides"
+companyTagline: "AI-Powered Presentations"
 role: "AI Product Marketing Intern"
-org: "MagicSlides — AI-Powered Presentations"
 dateLabel: "SEP — DEC 2023"
 order: 3
 bullets:

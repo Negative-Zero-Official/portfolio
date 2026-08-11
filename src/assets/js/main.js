@@ -1,5 +1,9 @@
-// Training run visualization: a loss curve that trains, converges, then restarts —
-// with live epoch / loss / status readouts underneath.
+// Neural network visualization: a layered network of nodes with signal
+// pulses continuously flowing forward through it, lighting up nodes and
+// connections as each pulse passes. Multiple staggered pulses are always
+// in flight, so the animation loops forever with no reset/jump — pulses
+// simply fade out at the output layer while new ones keep entering at
+// the input layer.
 const canvas = document.getElementById('scope');
 if (canvas) {
   const ctx = canvas.getContext('2d');
@@ -14,92 +18,144 @@ if (canvas) {
   window.addEventListener('resize', resize);
   resize();
 
-  const epochEl = document.getElementById('epochReadout');
-  const lossEl = document.getElementById('lossReadout');
+  const nodeEl = document.getElementById('nodeReadout');
+  const layerEl = document.getElementById('layerReadout');
   const statusEl = document.getElementById('statusReadout');
-  const TOTAL_EPOCHS = 1200;    // Original: 120
-  const REVEAL_FRAMES = 3400;   // frames to sweep across the full curve, original: 340
-  const HOLD_FRAMES = 90;      // frames to hold at "converged" before restarting
-  const CYCLE = REVEAL_FRAMES + HOLD_FRAMES;
-
-  let t = 0;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // loss value (0..1, high to low) at a given position along the curve, with
-  // noise that shrinks as training progresses — mirrors a real training curve
-  function lossAt(frac){
-    const base = Math.exp(-4.2 * frac);
-    // const noise = (Math.random() - 0.5) * 0.16 * (1 - frac * 0.85);
-    const noise = 0;
-    return Math.max(0.015, Math.min(1, base + noise));
+  // ---- network topology ----
+  // node counts per layer — wide in the middle, narrow at input/output,
+  // for a "couple hundred nodes" total, sparsely linked so the pulse reads clearly
+  // const LAYER_COUNTS = [16, 32, 44, 52, 52, 44, 32, 16];
+  const LAYER_COUNTS = [2, 4, 8, 16, 16, 8, 4, 2];
+  const LAYERS = LAYER_COUNTS.length;
+  const LINKS_PER_NODE = 2; // sparse connections to keep it readable + performant
+
+  let nodes = [];   // {layer, xFrac, yFrac, brightness}
+  let edges = [];   // {a (node idx), b (node idx), layer, brightness}
+
+  function buildNetwork(){
+    nodes = [];
+    edges = [];
+    const layerStartIdx = [];
+    LAYER_COUNTS.forEach((count, layerIdx) => {
+      layerStartIdx.push(nodes.length);
+      const xFrac = LAYERS === 1 ? 0.5 : layerIdx / (LAYERS - 1);
+      for(let i=0; i<count; i++){
+        // even vertical spread with slight organic jitter, fixed per node
+        const base = (i + 0.5) / count;
+        const jitter = (Math.sin(layerIdx * 12.9 + i * 78.2) * 0.5) * (0.5 / count);
+        nodes.push({ layer: layerIdx, xFrac, yFrac: base + jitter, brightness: 0 });
+      }
+    });
+    // fully connected forward connections between adjacent layers
+    for(let l=0; l<LAYERS-1; l++){
+      const fromStart = layerStartIdx[l], fromCount = LAYER_COUNTS[l];
+      const toStart = layerStartIdx[l+1], toCount = LAYER_COUNTS[l+1];
+      for(let i=0; i<fromCount; i++){
+        const fromIdx = fromStart + i;
+        for(let j=0; j<toCount; j++){
+          edges.push({ a: fromIdx, b: toStart + j, layer: l, brightness: 0 });
+        }
+      }
+    }
   }
+  buildNetwork();
+  if(nodeEl) nodeEl.textContent = `NODES ${nodes.length}`;
+
+  // ---- forward-pass pulses ----
+  const FRAMES_PER_LAYER = 35;
+  const SPAWN_EVERY = 350; // frames between new pulses — keeps 1–2 in flight, not a wall of light
+  const GLOW_WINDOW = 1.5; // how narrow the lit "front" is, in layer-units
+  let pulses = []; // {start}
+  let t = 0;
+  let lastReportedLayer = 1;
 
   function draw(){
     const rect = canvas.getBoundingClientRect();
     const w = rect.width, h = rect.height;
     ctx.clearRect(0,0,w,h);
 
-    // grid
-    ctx.strokeStyle = 'rgba(240,237,247,0.05)';
-    ctx.lineWidth = 1;
-    for(let x=0; x<w; x+=30){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
-    for(let y=0; y<h; y+=30){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+    const marginX = w * 0.04, marginY = h * 0.12;
+    const plotW = w - marginX*2, plotH = h - marginY*2;
+    const px = (n) => marginX + n.xFrac * plotW;
+    const py = (n) => marginY + n.yFrac * plotH;
 
-    const cycle = t % CYCLE;
-    // const revealFrac = Math.min(1, cycle / REVEAL_FRAMES);
-    const raw = t / REVEAL_FRAMES;
-    const revealFrac = 1 - Math.exp(-2 * raw)
-    const marginTop = h * 0.12, marginBottom = h * 0.12;
-    const plotH = h - marginTop - marginBottom;
-
-    // curve, drawn up to the current reveal point
-    ctx.beginPath();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#8b7cf6';
-    ctx.shadowColor = 'rgba(139,124,246,0.5)';
-    ctx.shadowBlur = 6;
-
-    const steps = Math.max(2, Math.floor(w * revealFrac));
-    let lastLoss = 1;
-    for(let i=0; i<=steps; i++){
-      const x = i;
-      const frac = x / w;
-      const loss = lossAt(frac);
-      lastLoss = loss;
-      const y = marginTop + plotH * (1 - loss);
-      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    // spawn new pulses on a steady cadence — independent of any pulse finishing,
+    // so there is no shared "reset" moment
+    if(!reduceMotion && t % SPAWN_EVERY === 0){
+      pulses.push({ start: t });
     }
-    ctx.stroke();
-    ctx.shadowBlur = 0;
+    // drop pulses once they've fully exited the network
+    pulses = pulses.filter(p => (t - p.start) < (LAYERS + 1) * FRAMES_PER_LAYER);
 
-    // live point marker at the sweep edge
-    if(revealFrac < 1){
-      const x = steps;
-      const y = marginTop + plotH * (1 - lastLoss);
+    // decay all brightness slightly each frame (afterglow trail)
+    for(const n of nodes) n.brightness *= 0.85;
+    for(const e of edges) e.brightness *= 0.80;
+
+    let frontierLayer = 1;
+    for(const p of pulses){
+      const pos = (t - p.start) / FRAMES_PER_LAYER; // continuous layer position
+      frontierLayer = Math.max(frontierLayer, Math.min(LAYERS, Math.ceil(pos)));
+
+      // light up nodes near the pulse's current layer
+      for(const n of nodes){
+        const d = Math.abs(n.layer - pos);
+        if(d < GLOW_WINDOW){
+          const b = Math.max(0, 1 - d/GLOW_WINDOW);
+          n.brightness = Math.max(n.brightness, b);
+        }
+      }
+      // light up edges currently being "traversed" between two layers
+      for(const e of edges){
+        const d = Math.abs((e.layer + 0.5) - pos);
+        if(d < GLOW_WINDOW){
+          const b = Math.max(0, 1 - d/GLOW_WINDOW);
+          e.brightness = Math.max(e.brightness, b);
+        }
+      }
+    }
+
+    // edges
+    for(const e of edges){
+      if(e.brightness < 0.03) {
+        ctx.strokeStyle = 'rgba(238,241,248,0.04)';
+        ctx.lineWidth = 1;
+      } else {
+        ctx.strokeStyle = `rgba(130,200,229,${0.10 + e.brightness*0.75})`;
+        ctx.lineWidth = 1 + e.brightness*1.3;
+      }
+      const a = nodes[e.a], b = nodes[e.b];
       ctx.beginPath();
-      ctx.fillStyle = '#8b7cf6';
-      ctx.shadowColor = 'rgba(139,124,246,0.8)';
-      ctx.shadowBlur = 8;
-      ctx.arc(x, y, 3.5, 0, Math.PI*2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
+      ctx.moveTo(px(a), py(a));
+      ctx.lineTo(px(b), py(b));
+      ctx.stroke();
     }
 
-    // baseline
-    ctx.strokeStyle = 'rgba(240,237,247,0.08)';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0,h-marginBottom); ctx.lineTo(w,h-marginBottom); ctx.stroke();
+    // nodes
+    for(const n of nodes){
+      const x = px(n), y = py(n);
+      if(n.brightness < 0.04){
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(163,174,194,0.35)';
+        ctx.arc(x, y, 1.6, 0, Math.PI*2);
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(130,200,229,${0.5 + n.brightness*0.5})`;
+        ctx.shadowColor = 'rgba(130,200,229,0.9)';
+        ctx.shadowBlur = 6 * n.brightness;
+        ctx.arc(x, y, 1.6 + n.brightness*1.8, 0, Math.PI*2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
 
     // live readouts
-    if(epochEl && lossEl && statusEl){
-      const epoch = Math.min(TOTAL_EPOCHS, Math.round(revealFrac * TOTAL_EPOCHS));
-      epochEl.textContent = `EPOCH ${String(epoch).padStart(3,'0')}/${TOTAL_EPOCHS}`;
-      lossEl.textContent = `LOSS ${(lastLoss * 0.42).toFixed(4)}`;
-      if(revealFrac >= 1){
-        statusEl.textContent = 'CONVERGED ●';
-      } else {
-        statusEl.textContent = 'TRAINING ●';
-      }
+    if(layerEl && statusEl){
+      lastReportedLayer = Math.max(1, Math.min(LAYERS, frontierLayer));
+      layerEl.textContent = `LAYER ${lastReportedLayer}/${LAYERS}`;
+      statusEl.textContent = 'ACTIVE ●';
     }
 
     t += reduceMotion ? 0 : 1;

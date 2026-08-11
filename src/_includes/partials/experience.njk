@@ -10,8 +10,8 @@
     <div class="exp-card reveal">
       <div class="exp-bar">
         <div>
-          <h3>{{ job.data.role }}</h3>
-          <div class="org">{{ job.data.org }}</div>
+          <h3>{{ job.data.company }}</h3>
+          <div class="role-line">{{ job.data.role }}{% if job.data.companyTagline %} · {{ job.data.companyTagline }}{% endif %}</div>
         </div>
         <div class="date">{{ job.data.dateLabel }}</div>
       </div>

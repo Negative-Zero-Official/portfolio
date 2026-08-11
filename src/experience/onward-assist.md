@@ -1,6 +1,7 @@
 ---
+company: "Onward Assist"
+companyTagline: "AI in Medical Diagnoses & Research"
 role: "AI/ML Models Engineering Intern"
-org: "Onward Assist — AI in Medical Diagnoses & Research"
 dateLabel: "MAY — JUL 2026"
 order: 1
 bullets:

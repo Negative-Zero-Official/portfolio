@@ -13,8 +13,8 @@ HOW TO ADD A NEW PROJECT CARD
    statusLabel  → small pill text, e.g. "Published · IEEE", "Open Source",
                   "Research", "Archive", or anything you want
    statusClass  → controls the pill's color:
-                    "published" = violet
-                    "oss"       = coral
+                    "published" = sky blue
+                    "oss"       = cobalt
                     "analysis"  = grey  (used for Research / Archive / etc.)
    tags         → list of short chips shown under the description,
                   e.g. ["Python", "Computer Vision"] — use [] for none

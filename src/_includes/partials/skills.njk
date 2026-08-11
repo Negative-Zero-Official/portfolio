@@ -11,7 +11,7 @@
         {% for item in panel.items %}
         <div class="meter-row">
           <div class="meter-label">{{ item.name }} <span class="lvl">{{ item.tag }}</span></div>
-          <div class="meter-track"><div class="meter-fill {% if panel.color == 'coral' %}coral{% endif %}" style="width:{{ item.level }}%"></div></div>
+          <div class="meter-track"><div class="meter-fill {% if panel.color == 'cobalt' %}cobalt{% endif %}" style="width:{{ item.level }}%"></div></div>
         </div>
         {% endfor %}
       </div>
