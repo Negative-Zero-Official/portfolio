@@ -9,7 +9,7 @@
     </div>
     <div class="reveal">
       <div class="avatar-wrap">
-        <img src="{{ '/assets/img/photo.jpg' | url }}" alt="Portrait of {{ site.name }}">
+        <img src="{{ '/assets/img/photo.jpg' | url | cachebust }}" alt="Portrait of {{ site.name }}">
         <span class="avatar-tag">{{ site.initials }} · MIT '27</span>
       </div>
       <div class="fact-panel" style="margin-top:16px;">
