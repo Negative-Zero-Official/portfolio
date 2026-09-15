@@ -1,12 +1,8 @@
 [
-  { "icon": "★", "text": "Scholar Badge, Delhi Public School — outstanding academic performance." },
-  { "icon": "★", "text": "Gold Medal & 2nd School Rank — International Mathematics Olympiad (SOF)." },
-  { "icon": "★", "text": "Gold Medal & 6th School Rank — International English Olympiad (SOF)." },
-  { "icon": "★", "text": "9th School Rank — International Science Olympiad (SOF)." },
-  { "icon": "◆", "text": "2nd Place — interschool programming & design competition, Alpha 2019, Oakridge International School." },
-  { "icon": "◆", "text": "Presented an Arduino-based Automated Drip Irrigation System at Maker Faire, Hyderabad 2019." },
-  { "icon": "◆", "text": "Demonstrated \"Bending of Light Around Black Holes\" using Lego Mindstorms at the School Science Fair." },
-  { "icon": "◆", "text": "Special Mention — represented Japan at Model United Nations, Delhi Public School." },
-  { "icon": "◆", "text": "Participated in the World Robotics Olympiad, Telangana State Round." },
-  { "icon": "◆", "text": "Completed a Robotics course using Lego Mindstorms at Kreative Edge, Hyderabad." }
+  { "icon": "★", "text": "Published first-author IEEE conference paper — AISTS 2025, on contextual similarity matching for lightweight chatbots." },
+  { "icon": "★", "text": "Sleep-staging ensemble that outperforms the source dataset paper's best published baseline on every overall metric and every individual sleep stage." },
+  { "icon": "★", "text": "D-MT4SR beats its published MT4SR baseline on NDCG@10 in 10/10 seeds on Amazon Appliances and 6/6 on Industrial & Scientific — manuscript in preparation for IEEE Access." },
+  { "icon": "◆", "text": "Selected for an AI/ML model engineering internship at Onward Assist, building predictive clinical decision support." },
+  { "icon": "◆", "text": "Hand-engineered transient classifier reaching near-parity with the Zwicky Transient Facility's own production CNN, without deep learning." },
+  { "icon": "◆", "text": "Dataset audit of a published sleep-staging corpus that surfaced duplicated and mislabelled recordings affecting how its splits must be constructed." }
 ]

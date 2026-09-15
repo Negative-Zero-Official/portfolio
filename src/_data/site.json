@@ -3,7 +3,11 @@
   "initials": "PG",
   "role": "Computer Science Undergraduate — Artificial Intelligence & Machine Learning",
   "eyebrow": "AI / ML Engineer — Model Training & Applied Research",
-  "heroHeadline": { "line1": "Minimizing loss,", "line2": "maximizing", "accent": "impact." },
+  "heroHeadline": {
+    "line1": "Minimizing loss,",
+    "line2": "maximizing",
+    "accent": "impact."
+  },
   "heroLede": "I'm **Prahlad Gaitonde**, a Computer Science undergraduate at Manipal Institute of Technology specializing in AI & Machine Learning. I build and publish applied ML systems — from healthcare decision support to classifying real astronomical events from false alarms — and bring a media production background to how I explain them.",
   "status": "OPEN TO WORK",
   "email": "pgaitonde05@gmail.com",
@@ -19,16 +23,32 @@
   "about": {
     "heading": "Where research meets production.",
     "paragraphs": [
-      "My work sits between two things I care about: **rigorous machine learning** and **making complex ideas legible**. I've trained models for healthcare decision support, built a lightweight classifier for astronomical transient detection that holds its own against a full CNN, and authored an IEEE conference paper on contextual similarity matching for chatbots.",
+      "My work sits between two things I care about: **rigorous machine learning** and **making complex ideas legible**. I've trained models for healthcare decision support — most recently an ensemble that stages sleep from overnight EEG better than its dataset's own published baseline — built a lightweight classifier for astronomical transient detection that holds its own against a full CNN, and authored an IEEE conference paper on contextual similarity matching for chatbots.",
+      "Right now most of my research time goes to **D-MT4SR**, a sequential recommender that learns how much each auxiliary item relationship should matter at every step of a user's history rather than fixing one weight for the whole dataset. It beats its published baseline across Amazon benchmarks by a margin that scales with how dense the relation graph is, and the paper is in preparation for IEEE Access.",
       "Before I was writing training pipelines, I was producing how-to guides and marketing videos for AI product teams — which is why I care as much about a clean interface and a clear explanation as I do about a model's F1 score. That combination shapes everything I build.",
-      "Outside of coursework and internships, I keep a running list of side projects — from firmware validation frameworks to JavaFX reservation systems — mostly to understand a new layer of the stack by building something real in it."
+      "Outside of coursework and internships, I keep a running list of side projects — from physics-informed networks and CUDA kernels to firmware validation frameworks — mostly to understand a new layer of the stack by building something real in it."
     ],
     "facts": [
-      { "k": "DEGREE", "v": "B.Tech CSE (AI & ML)" },
-      { "k": "INSTITUTION", "v": "Manipal Institute of Technology" },
-      { "k": "CGPA", "v": "7.8 / 10" },
-      { "k": "PUBLISHED", "v": "IEEE · AISTS 2025" },
-      { "k": "EMAIL", "v": "pgaitonde05@gmail.com" }
+      {
+        "k": "DEGREE",
+        "v": "B.Tech CSE (AI & ML)"
+      },
+      {
+        "k": "INSTITUTION",
+        "v": "Manipal Institute of Technology"
+      },
+      {
+        "k": "CGPA",
+        "v": "7.8 / 10"
+      },
+      {
+        "k": "PUBLISHED",
+        "v": "IEEE · AISTS 2025"
+      },
+      {
+        "k": "EMAIL",
+        "v": "pgaitonde05@gmail.com"
+      }
     ]
   },
   "contact": {
