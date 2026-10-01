@@ -1,26 +1,24 @@
 <header class="nav">
-  <div class="nav-inner">
-    <div class="logo">
-      <span class="logo-mark">{{ site.initials }}</span>
-      {{ site.name | upper }}
-    </div>
-    <nav class="links">
-      <a href="#about">About</a>
-      <a href="#education">Education</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="status-pill"><span class="status-dot"></span>{{ site.status }}</div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#about">About</a>
-    <a href="#education">Education</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </div>
+  <a class="nav-mark" href="{{ '/' | url }}" aria-label="{{ site.name }}, home">
+    <span class="nav-initials">{{ site.initials }}</span>
+    <span class="nav-name">{{ site.name }}</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="{{ '/' | url }}#about">About</a>
+    <a href="{{ '/' | url }}#experience">Experience</a>
+    <a href="{{ '/' | url }}#work">Work</a>
+    <a href="{{ '/' | url }}#toolkit">Toolkit</a>
+    <a href="{{ '/' | url }}#contact">Contact</a>
+  </nav>
+  <span class="nav-status"><span class="spike-dot" aria-hidden="true"></span>{{ site.status }}</span>
+  <button class="nav-menu" id="navMenu" type="button" aria-expanded="false" aria-controls="navSheet">Menu</button>
 </header>
+
+{# Small screens: the same links as a full-screen sheet #}
+<nav class="nav-sheet" id="navSheet" aria-label="Sections">
+  <a href="{{ '/' | url }}#about">About</a>
+  <a href="{{ '/' | url }}#experience">Experience</a>
+  <a href="{{ '/' | url }}#work">Work</a>
+  <a href="{{ '/' | url }}#toolkit">Toolkit</a>
+  <a href="{{ '/' | url }}#contact">Contact</a>
+</nav>

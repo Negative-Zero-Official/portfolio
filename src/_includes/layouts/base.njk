@@ -1,28 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ site.name }} — AI/ML Engineer &amp; Researcher</title>
-<meta name="description" content="Portfolio of {{ site.name }} — Computer Science undergraduate specializing in AI &amp; Machine Learning, published IEEE author, and builder of applied ML systems.">
+<title>{% if title and page.url != "/" %}{{ title }} — {% endif %}{{ site.name }} · Machine Learning Engineer</title>
+<meta name="description" content="{{ summary or ('Portfolio of ' + site.name + ' — machine learning engineer and researcher. Published IEEE author, building applied ML systems from healthcare to astronomy.') }}">
+<meta name="theme-color" content="#0f0d0a">
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | url | cachebust }}">
+<script>
+  // Runs before first paint: mark JS as available, and skip the intro
+  // loader for anyone who has already seen it this session.
+  document.documentElement.classList.replace("no-js", "js");
+  try { if (sessionStorage.getItem("pg-intro-seen")) document.documentElement.classList.add("intro-seen"); } catch (e) {}
+  // Failsafe: if the bundle never boots (blocked, old browser, error),
+  // fall back to the plain no-JS page instead of leaving content hidden.
+  setTimeout(function () {
+    if (!window.__pgBooted) document.documentElement.classList.replace("js", "no-js");
+  }, 5000);
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/assets/css/style.css' | url | cachebust }}">
 </head>
-<body>
+<body data-shape="{{ shape or 'neuron' }}" data-page="{{ 'home' if page.url == '/' else 'project' }}">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<canvas id="stage" aria-hidden="true"></canvas>
+<img class="stage-fallback" loading="lazy" src="{{ '/assets/img/neuron.svg' | url }}" alt="" aria-hidden="true">
+<div class="grain" aria-hidden="true"></div>
+
+{% if page.url == "/" %}
+<div class="loader" id="loader" aria-hidden="true">
+  <span class="loader-count" id="loaderCount">000</span>
+  <span class="loader-label">Staining tissue<span class="loader-dots"></span></span>
+</div>
+{% endif %}
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label">View</span></div>
 
 {% include "partials/nav.njk" %}
 
+<main id="main">
 {{ content | safe }}
+</main>
 
-<footer>
-  <div class="wrap foot-inner">
-    <span>© 2026 {{ site.name | upper }} — BUILT BY HAND, TRAINED BY DATA.</span>
-    <span><a href="mailto:{{ site.email }}">{{ site.email }}</a> · {{ site.phone }}</span>
+<aside class="plate" id="plate" aria-hidden="true">
+  <span class="plate-fig" id="plateFig"></span>
+  <span class="plate-cap" id="plateCap"></span>
+</aside>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span>© 2026 {{ site.name }}</span>
+    <span><a class="ink-link" href="mailto:{{ site.email }}">{{ site.email }}</a> · {{ site.phone }}</span>
+    <span class="muted">Neurons after Santiago Ramón y Cajal</span>
   </div>
 </footer>
 
-<script src="{{ '/assets/js/main.js' | url | cachebust }}"></script>
+<script type="module" src="{{ '/assets/js/app.js' | url | cachebust }}"></script>
 </body>
 </html>

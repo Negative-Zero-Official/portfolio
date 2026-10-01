@@ -1,21 +1,20 @@
-<section id="education" class="tight">
+{% set sc = site.scenes.embedding %}
+<section class="section education" id="education" data-scene="embedding" data-fig="{{ sc.fig | roman }}" data-caption="{{ sc.caption }}">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">02 / Education</div>
-      <h2 class="section-title">Academic record</h2>
+    <div class="sec-head">
+      <span class="sec-label" data-decode>Education</span>
     </div>
-    <div class="timeline reveal">
+    <ol class="edu">
       {% for edu in education %}
-      <div class="t-item">
-        <div class="t-head">
-          <h3>{{ edu.institution }}</h3>
-          <span class="date">{{ edu.date }}</span>
+      <li class="edu-item reveal">
+        <span class="edu-when">{{ edu.date }}</span>
+        <div>
+          <h3 class="edu-name">{{ edu.institution }}</h3>
+          <p class="edu-detail">{{ edu.detail }}{% if edu.chip %} <span class="stain">· {{ edu.chip }}</span>{% endif %}</p>
+          {% if edu.subDetail %}<p class="edu-sub">{{ edu.subDetail }}</p>{% endif %}
         </div>
-        <div class="sub">{{ edu.detail }}</div>
-        {% if edu.chip %}<span class="stat-chip">{{ edu.chip }}</span>{% endif %}
-        {% if edu.subDetail %}<div class="detail">{{ edu.subDetail }}</div>{% endif %}
-      </div>
+      </li>
       {% endfor %}
-    </div>
+    </ol>
   </div>
 </section>

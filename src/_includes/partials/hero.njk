@@ -1,33 +1,14 @@
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow">{{ site.eyebrow }}</div>
-      <h1>{{ site.heroHeadline.line1 }}<br>{{ site.heroHeadline.line2 }} <span class="accent">{{ site.heroHeadline.accent }}</span></h1>
-      <p class="lede">{{ site.heroLede | mdInline | safe }}</p>
-      <div class="cta-row">
-        <a href="#projects" class="btn btn-primary">View Projects →</a>
-        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-      </div>
-      <div class="hero-meta">
-        <span><b>Based in</b> {{ site.location }}</span>
-        <span><b>Focus</b> {{ site.focus }}</span>
-        <span><b>Status</b> {{ site.gradStatus }}</span>
-      </div>
-    </div>
-
-    <div class="scope-panel reveal">
-      <div class="scope-head">
-        <span>forward_pass.log</span>
-        <span class="tag">LIVE</span>
-      </div>
-      <canvas id="scope" width="600" height="220" role="img" aria-label="Animated diagram of a multi-layer neural network with signal pulses continuously flowing forward through the layers, nodes and connections lighting up as each pulse passes"></canvas>
-      <div class="scope-foot">
-        <span id="nodeReadout">NODES —</span>
-        <span id="layerReadout">LAYER —/—</span>
-        <span id="statusReadout" class="metric-live">ACTIVE ●</span>
-      </div>
+{% set sc = site.scenes.neuron %}
+<section class="hero" id="top" data-scene="neuron" data-fig="{{ sc.fig | roman }}" data-caption="{{ sc.caption }}">
+  <div class="wrap hero-inner">
+    <p class="kicker" data-decode>{{ site.hero.kicker }}</p>
+    <h1 class="hero-name">
+      <span class="hero-line"><span>Prahlad</span></span>
+      <span class="hero-line"><span><em>Gaitonde</em></span></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-statement">{{ site.hero.line }}</p>
+      <p class="hero-lede">{{ site.hero.lede | mdInline | safe }}</p>
     </div>
   </div>
 </section>
-
-<hr class="wave">

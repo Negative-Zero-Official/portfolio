@@ -3,20 +3,52 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
+const esbuild = require("esbuild");
+
 const md = markdownIt({ html: true });
 const PATH_PREFIX = process.env.PATH_PREFIX || "/";
+const IS_SERVE = process.argv.includes("--serve") || process.argv.includes("--watch");
 
 module.exports = function (eleventyConfig) {
-  // Copy static assets (css/js/images) straight through to the output folder
-  eleventyConfig.addPassthroughCopy("src/assets");
+  // Copy static assets (css/images) straight through to the output folder.
+  // JavaScript is NOT copied raw — it's bundled by esbuild below.
+  eleventyConfig.addPassthroughCopy("src/assets/css");
+  eleventyConfig.addPassthroughCopy("src/assets/img");
 
-  // Rebuild automatically when CSS/JS changes during local dev (`npx eleventy --serve`)
+  // Rebuild automatically when CSS/JS changes during local dev (`npm start`)
   eleventyConfig.addWatchTarget("src/assets");
+
+  // Bundle src/assets/js/app.js (and everything it imports: three.js, gsap,
+  // lenis, the particle scene…) into a single file at <output>/assets/js/app.js.
+  // Runs before every build, so it also re-bundles on save during `npm start`.
+  let outputDir = "_site";
+  eleventyConfig.on("eleventy.before", async ({ directories }) => {
+    outputDir = directories?.output || outputDir;
+    await esbuild.build({
+      entryPoints: ["src/assets/js/app.js"],
+      outfile: path.join(outputDir, "assets/js/app.js"),
+      bundle: true,
+      format: "esm",
+      target: "es2020",
+      minify: !IS_SERVE,
+      sourcemap: IS_SERVE,
+      logLevel: "warning",
+    });
+  });
 
   // Projects collection — every .md file in src/projects, sorted by "order" front matter
   eleventyConfig.addCollection("projects", (collectionApi) => {
     return collectionApi
       .getFilteredByGlob("src/projects/*.md")
+      .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+  });
+
+  // Projects that get a row in the index + their own detail page
+  // (everything except "compact" entries like Other Builds)
+  eleventyConfig.addCollection("projectPages", (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob("src/projects/*.md")
+      .filter((p) => p.data.index !== "compact")
       .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
   });
 
@@ -53,7 +85,12 @@ module.exports = function (eleventyConfig) {
     }
     rel = rel.replace(/^\/+/, "");
 
-    const file = path.join(__dirname, "src", rel);
+    // Hash the file that's actually served: the esbuild bundle in the output
+    // folder for JS (src/assets/js/app.js is only its entry point, so hashing
+    // it would miss changes in imported modules), the source file otherwise.
+    const file = rel.startsWith("assets/js/")
+      ? path.resolve(outputDir, rel)
+      : path.join(__dirname, "src", rel);
     if (!hashCache.has(file)) {
       try {
         const hash = crypto
@@ -79,6 +116,17 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("mdInline", (value) => {
     if (!value) return "";
     return md.renderInline(value);
+  });
+
+  // 3 -> "03" — index numbers in the project list
+  eleventyConfig.addFilter("pad2", (n) => String(n).padStart(2, "0"));
+
+  // 3 -> "III" — figure numbers in the plate captions
+  eleventyConfig.addFilter("roman", (n) => {
+    const map = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+    let out = "";
+    for (const [v, s] of map) while (n >= v) { out += s; n -= v; }
+    return out;
   });
 
   // Renders full markdown (paragraphs etc.) — used for project/job body content
