@@ -14,7 +14,7 @@
       <div class="about-side reveal">
         <figure class="portrait">
           <img src="{{ '/assets/img/photo.jpg' | url | cachebust }}" alt="Portrait of {{ site.name }}" loading="lazy">
-          <figcaption>Specimen {{ site.initials }}-27 · Manipal</figcaption>
+          <figcaption>{{ site.initials }} · {{ site.about.facts[1].v }}</figcaption>
         </figure>
         <dl class="facts">
           {% for fact in site.about.facts %}

@@ -9,7 +9,7 @@ tags: ["Web", "Learning Design", "Vercel"]
 links:
   - { label: "Open Study Hub", url: "https://study-guides-hub.vercel.app/" }
 featured: true
-order: 0
+order: 1
 ---
 Study Hub is where I turn a semester of lecture decks, textbook chapters and transcripts into something I can actually learn from. It's a set of **offline-capable, self-contained study guides**, each built from scratch around one course, collected behind a single sign-in that keeps reading progress in sync across devices.
 

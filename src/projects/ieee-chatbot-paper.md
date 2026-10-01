@@ -9,7 +9,7 @@ tags: ["NLP", "Sentence Embeddings", "IEEE"]
 links:
   - { label: "View DOI", url: "https://doi.org/10.1109/AISTS66100.2025.11233150" }
 featured: true
-order: 1
+order: 0
 ---
 A first-author conference paper on building a **lightweight chatbot that learns**, using sentence embeddings and contextual similarity matching. The bot doesn't generate a response. It embeds the incoming message, compares it against embedded examples it has already seen, and answers from the closest match. That keeps it small, fast and easy to extend with new knowledge.
 

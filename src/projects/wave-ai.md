@@ -1,5 +1,5 @@
 ---
-title: "WAVE"
+title: "WAVE-AI"
 subtitle: "Wakefield Analysis via Vector Electrodynamics"
 summary: "A physics-informed neural network that solves Maxwell's equations for the wakefield behind a relativistic particle bunch, without a mesh."
 status: "Open source"
