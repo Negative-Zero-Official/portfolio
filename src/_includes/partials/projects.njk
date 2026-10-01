@@ -1,31 +1,37 @@
-<section id="projects" class="tight">
+{% set sc = site.scenes.attention %}
+<section class="section work" id="work" data-scene="attention" data-fig="{{ sc.fig | roman }}" data-caption="{{ sc.caption }}">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">04 / Projects &amp; Publications</div>
-      <h2 class="section-title">Selected work</h2>
-      <p>Each card is tagged with where it actually stands — published, shipped, or still in the lab.</p>
+    <div class="sec-head">
+      <span class="sec-label" data-decode>Selected work</span>
+      <h2 class="sec-title reveal">Papers, models &amp; <em>things that shipped.</em></h2>
     </div>
 
-    <div class="proj-grid">
-      {% for project in collections.projects %}
-      <div class="proj-card {% if project.data.featured %}full{% endif %} reveal">
-        <div class="proj-top">
-          <h3>{{ project.data.title }}</h3>
-          <span class="status-tag {{ project.data.statusClass }}">{{ project.data.statusLabel }}</span>
-        </div>
-        <div class="proj-desc">{{ project.templateContent | safe }}</div>
-        {% if project.data.tags and project.data.tags.length %}
-        <div class="chip-row">
-          {% for tag in project.data.tags %}
-          <span class="chip">{{ tag }}</span>
-          {% endfor %}
-        </div>
-        {% endif %}
-        {% if project.data.link %}
-        <a class="proj-link" href="{{ project.data.link }}" target="_blank" rel="noopener">{{ project.data.linkLabel }} →</a>
-        {% endif %}
-      </div>
+    <ol class="index" id="projectIndex">
+      {% for project in collections.projectPages %}
+      <li class="index-item reveal">
+        <a class="index-row" href="{{ project.url | url }}" data-shape="{{ project.data.shape or 'embedding' }}" data-title="{{ project.data.title }}">
+          <span class="index-no">{{ loop.index | pad2 }}</span>
+          <span class="index-title">
+            <span class="index-name">{{ project.data.title }}</span>
+            {% if project.data.summary %}<span class="index-summary">{{ project.data.summary }}</span>{% endif %}
+          </span>
+          <span class="index-status">{{ project.data.status or project.data.statusLabel }}</span>
+          <span class="index-year">{{ project.data.year or "—" }}</span>
+          <span class="index-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
       {% endfor %}
+    </ol>
+
+    {% for group in collections.projects %}{% if group.data.index == "compact" %}
+    <div class="others reveal">
+      <h3 class="others-title">{{ group.data.title }}</h3>
+      <ul class="others-list">
+        {% for item in group.data.items %}
+        <li><a class="others-row" href="{{ item.url }}" target="_blank" rel="noopener"><span>{{ item.name }}</span><span class="muted">{{ item.note }}</span><span aria-hidden="true">↗</span></a></li>
+        {% endfor %}
+      </ul>
     </div>
+    {% endif %}{% endfor %}
   </div>
 </section>

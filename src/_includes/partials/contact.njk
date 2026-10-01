@@ -1,15 +1,13 @@
-<section id="contact">
+{% set sc = site.scenes.embedding %}
+<section class="section contact" id="contact" data-scene="embedding" data-query="true" data-fig="{{ sc.fig | roman }}" data-caption="{{ sc.caption }}">
   <div class="wrap">
-    <div class="contact-panel reveal">
-      <div class="eyebrow" style="justify-content:center;">07 / Contact</div>
-      <h2>{{ site.contact.heading }}</h2>
-      <p>{{ site.contact.body }}</p>
-      <div class="contact-links">
-        <a class="btn btn-primary" href="mailto:{{ site.email }}">Email Me →</a>
-        <a class="btn btn-ghost" href="{{ site.links.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn-ghost" href="{{ site.links.github }}" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn btn-ghost" href="{{ site.links.oldPortfolio }}" target="_blank" rel="noopener">Old Portfolio</a>
-      </div>
-    </div>
+    <span class="sec-label" data-decode>Contact</span>
+    <h2 class="contact-title reveal">{{ site.contact.heading }}</h2>
+    <p class="contact-body reveal">{{ site.contact.body }}</p>
+    <a class="contact-mail reveal" href="mailto:{{ site.email }}">{{ site.email }}<span aria-hidden="true"> →</span></a>
+    <ul class="contact-links reveal">
+      <li><a class="ink-link" href="{{ site.links.linkedin }}" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+      <li><a class="ink-link" href="{{ site.links.github }}" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
   </div>
 </section>

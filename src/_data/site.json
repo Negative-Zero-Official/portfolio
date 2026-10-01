@@ -2,14 +2,12 @@
   "name": "Prahlad Gaitonde",
   "initials": "PG",
   "role": "Computer Science Undergraduate — Artificial Intelligence & Machine Learning",
-  "eyebrow": "AI / ML Engineer — Model Training & Applied Research",
-  "heroHeadline": {
-    "line1": "Minimizing loss,",
-    "line2": "maximizing",
-    "accent": "impact."
+  "hero": {
+    "kicker": "Machine learning engineer & researcher",
+    "line": "From neuron to network — I train models, publish what they find, and build the interfaces that explain them.",
+    "lede": "Computer Science undergraduate at **Manipal Institute of Technology**, specialising in AI & ML. Published IEEE author. Currently: dynamic relation weighting for sequential recommenders."
   },
-  "heroLede": "I'm **Prahlad Gaitonde**, a Computer Science undergraduate at Manipal Institute of Technology specializing in AI & Machine Learning. I build and publish applied ML systems — from healthcare decision support to classifying real astronomical events from false alarms — and bring a media production background to how I explain them.",
-  "status": "OPEN TO WORK",
+  "status": "Open to work",
   "email": "pgaitonde05@gmail.com",
   "phone": "+91 83415 40514",
   "location": "India",
@@ -17,8 +15,14 @@
   "gradStatus": "B.Tech '27",
   "links": {
     "linkedin": "https://www.linkedin.com/in/prahlad-gaitonde-42a666287/",
-    "github": "https://github.com/Negative-Zero-Official/",
-    "oldPortfolio": "https://pgaitonde05.wixsite.com/portfolio/"
+    "github": "https://github.com/Negative-Zero-Official/"
+  },
+  "scenes": {
+    "neuron":    { "fig": 1, "caption": "Pyramidal neuron — soma, dendritic arbour, axon. After Cajal, 1899." },
+    "column":    { "fig": 2, "caption": "Cortical column — neurons organised into a repeating unit." },
+    "mlp":       { "fig": 3, "caption": "Multilayer perceptron — the same idea, flattened into layers." },
+    "attention": { "fig": 4, "caption": "Self-attention — every token weighs every other token." },
+    "embedding": { "fig": 5, "caption": "Embedding space — meaning as distance. Your cursor is the query." }
   },
   "about": {
     "heading": "Where research meets production.",
@@ -29,26 +33,11 @@
       "Outside of coursework and internships, I keep a running list of side projects — from physics-informed networks and CUDA kernels to firmware validation frameworks — mostly to understand a new layer of the stack by building something real in it."
     ],
     "facts": [
-      {
-        "k": "DEGREE",
-        "v": "B.Tech CSE (AI & ML)"
-      },
-      {
-        "k": "INSTITUTION",
-        "v": "Manipal Institute of Technology"
-      },
-      {
-        "k": "CGPA",
-        "v": "7.8 / 10"
-      },
-      {
-        "k": "PUBLISHED",
-        "v": "IEEE · AISTS 2025"
-      },
-      {
-        "k": "EMAIL",
-        "v": "pgaitonde05@gmail.com"
-      }
+      { "k": "Degree", "v": "B.Tech CSE (AI & ML)" },
+      { "k": "Institution", "v": "Manipal Institute of Technology" },
+      { "k": "CGPA", "v": "7.8 / 10" },
+      { "k": "Published", "v": "IEEE · AISTS 2025" },
+      { "k": "Based in", "v": "India" }
     ]
   },
   "contact": {

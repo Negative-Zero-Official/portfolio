@@ -1,13 +1,12 @@
-<section id="achievements" class="tight">
+<section class="section recognition" id="recognition" data-scene="embedding">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">06 / Achievements</div>
-      <h2 class="section-title">Recognition &amp; activities</h2>
+    <div class="sec-head">
+      <span class="sec-label" data-decode>Recognition</span>
     </div>
-    <div class="ach-grid">
+    <ul class="recog">
       {% for item in achievements %}
-      <div class="ach-item reveal"><span class="ach-icon">{{ item.icon }}</span><p>{{ item.text }}</p></div>
+      <li class="recog-item reveal"><span class="recog-mark" aria-hidden="true">{{ loop.index | pad2 }}</span><p>{{ item.text }}</p></li>
       {% endfor %}
-    </div>
+    </ul>
   </div>
 </section>

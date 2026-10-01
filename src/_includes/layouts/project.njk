@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+---
+{% set prevProject = collections.projectPages | getPreviousCollectionItem %}
+{% set nextProject = collections.projectPages | getNextCollectionItem %}
+{% set projLinks = links if links else ([{ label: linkLabel or "View project", url: link }] if link else []) %}
+
+<article class="project" data-scene="{{ shape or 'embedding' }}" data-fig="{{ (order + 1) | roman }}" data-caption="{{ title }} — {{ subtitle or status }}">
+  <div class="wrap">
+    <a class="back-link" href="{{ '/' | url }}#work"><span aria-hidden="true">←</span> All work</a>
+
+    <header class="project-head">
+      <p class="kicker" data-decode>{{ status or statusLabel }}{% if year %} · {{ year }}{% endif %}</p>
+      <h1 class="project-title">{{ title }}</h1>
+      {% if subtitle %}<p class="project-sub"><em>{{ subtitle }}</em></p>{% endif %}
+    </header>
+
+    <div class="project-grid">
+      <div class="project-body prose">
+        {{ content | safe }}
+      </div>
+      <aside class="project-meta">
+        {% if projLinks.length %}
+        <div class="meta-block">
+          <h2 class="meta-k">Links</h2>
+          <ul class="meta-links">
+            {% for l in projLinks %}
+            <li><a class="ink-link" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} ↗</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% if tags and tags.length %}
+        <div class="meta-block">
+          <h2 class="meta-k">Built with</h2>
+          <ul class="meta-tags">
+            {% for tag in tags %}<li>{{ tag }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </aside>
+    </div>
+
+    <nav class="project-pager" aria-label="More projects">
+      {% if prevProject %}
+      <a class="pager-link" href="{{ prevProject.url | url }}" data-shape="{{ prevProject.data.shape or 'embedding' }}">
+        <span class="pager-k">← Previous</span><span class="pager-t">{{ prevProject.data.title }}</span>
+      </a>
+      {% else %}<span></span>{% endif %}
+      {% if nextProject %}
+      <a class="pager-link pager-next" href="{{ nextProject.url | url }}" data-shape="{{ nextProject.data.shape or 'embedding' }}">
+        <span class="pager-k">Next →</span><span class="pager-t">{{ nextProject.data.title }}</span>
+      </a>
+      {% endif %}
+    </nav>
+  </div>
+</article>

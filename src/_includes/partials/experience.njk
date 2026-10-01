@@ -1,28 +1,25 @@
-<section id="experience">
+{% set sc = site.scenes.mlp %}
+<section class="section experience" id="experience" data-scene="mlp" data-fig="{{ sc.fig | roman }}" data-caption="{{ sc.caption }}">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">03 / Experience</div>
-      <h2 class="section-title">Work history</h2>
-      <p>Internships spanning applied ML engineering and AI product marketing.</p>
+    <div class="sec-head">
+      <span class="sec-label" data-decode>Experience</span>
+      <h2 class="sec-title reveal">Applied ML engineering, and <em>explaining</em> AI products.</h2>
     </div>
-
-    {% for job in collections.experience %}
-    <div class="exp-card reveal">
-      <div class="exp-bar">
-        <div>
-          <h3>{{ job.data.company }}</h3>
-          <div class="role-line">{{ job.data.role }}{% if job.data.companyTagline %} · {{ job.data.companyTagline }}{% endif %}</div>
+    <ol class="jobs">
+      {% for job in collections.experience %}
+      <li class="job reveal">
+        <div class="job-when">{{ job.data.dateLabel }}</div>
+        <div class="job-main">
+          <h3 class="job-company">{{ job.data.company }}</h3>
+          <p class="job-role">{{ job.data.role }}{% if job.data.companyTagline %} <span class="muted">· {{ job.data.companyTagline }}</span>{% endif %}</p>
+          <ul class="job-points">
+            {% for bullet in job.data.bullets %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+          </ul>
         </div>
-        <div class="date">{{ job.data.dateLabel }}</div>
-      </div>
-      <div class="exp-body">
-        <ul>
-          {% for bullet in job.data.bullets %}
-          <li>{{ bullet }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-    {% endfor %}
+      </li>
+      {% endfor %}
+    </ol>
   </div>
 </section>

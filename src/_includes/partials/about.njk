@@ -1,21 +1,26 @@
-<section id="about">
-  <div class="wrap about-grid">
-    <div class="reveal">
-      <div class="eyebrow">01 / About</div>
-      <h2 class="section-title">{{ site.about.heading }}</h2>
-      {% for para in site.about.paragraphs %}
-      <p>{{ para | mdInline | safe }}</p>
-      {% endfor %}
+{% set sc = site.scenes.column %}
+<section class="section about" id="about" data-scene="column" data-fig="{{ sc.fig | roman }}" data-caption="{{ sc.caption }}">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-label" data-decode>About</span>
+      <h2 class="sec-title reveal">{{ site.about.heading }}</h2>
     </div>
-    <div class="reveal">
-      <div class="avatar-wrap">
-        <img src="{{ '/assets/img/photo.jpg' | url | cachebust }}" alt="Portrait of {{ site.name }}">
-        <span class="avatar-tag">{{ site.initials }} · MIT '27</span>
-      </div>
-      <div class="fact-panel" style="margin-top:16px;">
-        {% for fact in site.about.facts %}
-        <div class="fact-row"><span class="k">{{ fact.k }}</span><span class="v">{{ fact.v }}</span></div>
+    <div class="about-grid">
+      <div class="about-copy">
+        {% for para in site.about.paragraphs %}
+        <p class="reveal">{{ para | mdInline | safe }}</p>
         {% endfor %}
+      </div>
+      <div class="about-side reveal">
+        <figure class="portrait">
+          <img src="{{ '/assets/img/photo.jpg' | url | cachebust }}" alt="Portrait of {{ site.name }}" loading="lazy">
+          <figcaption>Specimen {{ site.initials }}-27 · Manipal</figcaption>
+        </figure>
+        <dl class="facts">
+          {% for fact in site.about.facts %}
+          <div class="fact"><dt>{{ fact.k }}</dt><dd>{{ fact.v }}</dd></div>
+          {% endfor %}
+        </dl>
       </div>
     </div>
   </div>
